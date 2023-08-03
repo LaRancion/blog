@@ -13,9 +13,21 @@ Implementation of a phishing campaign through known Microsoft Teams vulnerabilit
 > This material is for educational and research purposes only. Do not attempt to violate the law with any of the material contained here. Do not use this information maliciously. I can not be held responsible for any error or negligence derived therefrom, use at your own risk.
 
 
-## Summary
+## Table of contents
+- [Summary](#summary)
+- [Data and tests](#data-and-tests)
+-   [General Info](#general-info)
+-   [Manual Tests](#manual-tests)
+-   [Data Exfiltration](#data-exfiltration)
+-   [Automation Tests](#automation-tests)
+- [Conclusions](#conclusion)
+- [Footnotes](#footnotes)
 
-The tests aim to exploit known flaws of Microsoft Teams discovered by Max Corbridge and Tom Ellson that allows an external user to contact an internal user or a list of users within the organization through group chat.
+
+
+## [Summary](#summary)
+
+The tests aim to exploit known flaws of Microsoft Teams discovered by Max Corbridge and Tom Ellson[^1] that allows an external user to contact an internal user or a list of users within the organization through group chat.
 
 The phishing attempt is facilitated also by the feature of Microsoft Teams that format Share Point links as they were files directly sent in the conversation.
 
@@ -30,8 +42,8 @@ The final considerations will be about the development of payloads/techniques th
 - target email
 
 The tools used are: 
-- [TeamPhisher](https://github.com/Octoberfest7/TeamsPhisher) (automation)
-- [Burp Suite](https://portswigger.net/burp) (manual)
+- [TeamPhisher](https://github.com/Octoberfest7/TeamsPhisher) (automation)[^3]
+- [Burp Suite](https://portswigger.net/burp) (manual)[^2][^5][^6]
 
 #### Objectives:
 - Verify the exploitability of this flaws and estimate the success that they would have in a real campaign
@@ -40,16 +52,16 @@ The tools used are:
   
 ---
 
-## Data and tests
+## [Data and tests](#data-and-tests)
 
-### General Info
+### [General Info](#general-info)
 
 Using the azure domain free its possible to setup a custom domain like the one we used ```REDACTED.onmicrosoft.com``` and a user like  
 ```REDACTED@REDACTED.onmicrosoft.com``` ( create something that blends more with the org that you are trying to infiltrate :] like Helpdesk ICT with a similar domain), the cost of this procedure is 1$.
 
 Defender AV and Microsoft EDR were present in the testing environment (victim machine).
 
-### Manual Tests
+### [Manual Tests](#manual-tests)
 
 Testing of the following  Microsoft Teams flaws/vulnerabilities:
 
@@ -189,7 +201,7 @@ Here are some of the possible attack chains that we suppose to use in our testin
 In this phishing campaign we are interested only in detecting the success of our attack attempts and in identifying the phished users.
 So the objectives will be to detect if the users effectively click a phishing link that redirects to a fake microsoft login page (tracked with custom urls per user) or if they download and execute the malicious file.
 
-With that being said after further testing I believe that the best options for the payload are a Zip archive (more interesting info [here](https://breakdev.org/zip-motw-bug-analysis/)) that can contain a .lnk file (more info on .lnk file exploitation [here](https://v3ded.github.io/redteam/abusing-lnk-features-for-initial-access-and-persistence)) that executes a hidden script in VBS or PS (Macros are now disabled by default on windows :().
+With that being said after further testing I believe that the best options for the payload are a Zip archive[^10] that can contain a .lnk file[^11] that executes a hidden script in VBS or PS (Macros are now disabled by default on windows :().
 
 Sending the script directly as a .lnk or .ps1/.vbs and tamper the file extension on teams is a possibility, but the user can detect it easily looking at what he is effectively downloading + MOTW alerts.
 
@@ -207,8 +219,8 @@ if ((extension_lower == FILE_PATH_LITERAL("local")) ||    (extension_lower == FI
 
 
 The delivery of the payload encounter two obstacles that can prevent the user from falling into the trap: the first one is MOTW (mark of the web) that prevent the user from executing the file by raising a suspicious smart-screen blue pop-up that re-asks the user if he really wants to open the file.
-To bypass this we can use ISO/VHD containers or 7zip files (default options in the 7zip applications have MOTW disabled for the childs inside the archive) that once extracted won't have the MOTW.
-If we are in a C2 situation we can nest the powershell commands under trusted utilities/applications like SyncAppvPublishingServer.exe or conhost.exe to download and run commands remotely, find more [here](https://lolbas-project.github.io/lolbas/Binaries/Syncappvpublishingserver/) (this can trigger EDR).
+To bypass[^9] this we can use ISO/VHD containers or 7zip files (default options in the 7zip applications have MOTW disabled for the childs inside the archive) that once extracted won't have the MOTW.
+If we are in a C2 situation we can nest the powershell commands under trusted utilities/applications like SyncAppvPublishingServer.exe[^8] or conhost.exe to download and run commands remotely(this can trigger EDR).
 
 ![EDR trigger](/images/EDR_trigge.png)
 
@@ -222,9 +234,9 @@ Possible file ideas to trick the user:
 - sensitive information inside a zip protected with password
 - receipts or financial data disguised as PDFs
 
-##### Data Exfiltration
+##### [Data Exfiltration](#data-exfiltration)
 
-The data exfiltration technique used was ICMP Tunneling and the whole idea of the ping length was taken from [Rocco Sicilia](https://roccosicilia.com/2023/04/27/icmp-infostealing-il-lab-prima-parte/) work.
+The data exfiltration technique used was ICMP Tunneling and the whole idea of the ping length was taken from Rocco Sicilia[^12] work.
 This kind of script was done because on windows we can't insert messages directly into the ping command as it is on Linux.
 
 ```
@@ -349,7 +361,7 @@ On the attacker machine we will have a program taking the length of the data and
 
 ---
 
-### Automation Tests using TeamPhisher
+### [Automation Tests using TeamPhisher](#automation-tests)
 
 we installed the following packages with pip ```
 pip3 install msal```
@@ -447,7 +459,7 @@ The error was related with the formatting of the message and the use of special 
 
 3. [GitHub issue 2](https://github.com/Octoberfest7/TeamsPhisher/issues/11)
 
-## Conclusions
+## [Conclusions](#conclusion)
 
 This actions heavily relay on the flaws of Microsoft Teams and the trust that the employees might have towards a product like this as it can be seen as a native extension of the communications inside an organization.
 Smart working can also be a small cause in the success of a campaign like this as missing human interactions influence and increase the value of chatting products within and outside organizations.
@@ -465,7 +477,7 @@ To detect this kind of attacks the only solution is custom detection rules and q
 UPDATE:: It seems that external messages aren't collected from defender/purview/sentinel, that would prevent completely the manual detection with custom queries, this is a possible configuration mistake on data connectors from my side.
 I leave the queries below just for reference and for further personal study.
 
-**Microsoft Sentinel possible query**
+**Microsoft Sentinel possible query**[^4][^7]
 
 ```
 OfficeActivity
@@ -502,36 +514,36 @@ CloudAppEvents
 | where Workload == "Teams"
 ```
 
-## Bibliography/Credits
+--- 
+{: data-content="footnotes"}
 
-- [Teams Official disclose Research](https://labs.jumpsec.com/advisory-idor-in-microsoft-teams-allows-for-external-tenants-to-introduce-malware/)
+## [Footnotes](#footnotes)
 
-- [Manual bugs/exploitations](https://posts.inthecyber.com/leveraging-microsoft-teams-for-initial-access-42beb07f12c4)
+[^1]: [Teams Official disclose Research](https://labs.jumpsec.com/advisory-idor-in-microsoft-teams-allows-for-external-tenants-to-introduce-malware/)
 
-- [Basic tool](https://github.com/sse-secure-systems/TeamsEnum)
+[^2]: [Manual bugs/exploitations](https://posts.inthecyber.com/leveraging-microsoft-teams-for-initial-access-42beb07f12c4)
 
-- [audit logs in microsoft teams](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-teams-audit-log-events?view=o365-worldwide)
+[^3]: [Basic tool](https://github.com/sse-secure-systems/TeamsEnum)
 
-- [Guide3](https://badoption.eu/blog/2023/06/30/teams3.html)
+[^4]: [audit logs in microsoft teams](https://learn.microsoft.com/en-us/microsoft-365/compliance/audit-teams-audit-log-events?view=o365-worldwide)
 
-- [Guide2](https://badoption.eu/blog/2023/06/22/teams2.html)
+[^5]: [Guide3](https://badoption.eu/blog/2023/06/30/teams3.html)
 
-- [queries article](https://www.linkedin.com/pulse/defending-against-teamsphisher-attack-microsoft-365-defender-lim?utm_source=share&utm_medium=member_ios&utm_campaign=share_via)
+[^6]: [Guide2](https://badoption.eu/blog/2023/06/22/teams2.html)
 
-- [lolbas](https://lolbas-project.github.io/lolbas/Binaries/Syncappvpublishingserver/)
+[^7]: [queries article](https://www.linkedin.com/pulse/defending-against-teamsphisher-attack-microsoft-365-defender-lim?utm_source=share&utm_medium=member_ios&utm_campaign=share_via)
 
-- [MOTW bypass](https://redcanary.com/threat-detection-report/techniques/mark-of-the-web-bypass/)
+[^8]: [lolbas](https://lolbas-project.github.io/lolbas/Binaries/Syncappvpublishingserver/)
 
-- [MOTW bypass on zip](https://breakdev.org/zip-motw-bug-analysis/)
+[^9]: [MOTW bypass](https://redcanary.com/threat-detection-report/techniques/mark-of-the-web-bypass/)
 
-- [abusing lnk](https://v3ded.github.io/redteam/abusing-lnk-features-for-initial-access-and-persistence)
+[^10]: [MOTW bypass on zip](https://breakdev.org/zip-motw-bug-analysis/)
 
-- [Useful Red Team Info ITA](https://roccosicilia.com/)
+[^11]: [abusing lnk](https://v3ded.github.io/redteam/abusing-lnk-features-for-initial-access-and-persistence)
+
+[^12]: [Useful Red Team Info ITA](https://roccosicilia.com/)
 
 +other articles that i cant remember
-
-
-
 
 
 
