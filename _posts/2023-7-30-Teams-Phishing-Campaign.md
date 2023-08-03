@@ -521,9 +521,7 @@ CloudAppEvents
 | where Workload == "Teams"
 ```
 
-
 --- 
-{: data-content="footnotes"}
 
 ## [Footnotes](#footnotes)
 
