@@ -24,9 +24,9 @@ Implementation of a phishing campaign through known Microsoft Teams vulnerabilit
   
   -   [Data Exfiltration](#data-exfiltration)
   
--   [Automation Tests](#automation-tests)
+-   [Automation Tests using TeamPhisher](#automation-tests)
   
-- [Conclusions](#conclusion)
+- [Conclusions](#conclusions)
 
 - [Footnotes](#footnotes)
 
@@ -466,7 +466,8 @@ The error was related with the formatting of the message and the use of special 
 
 3. [GitHub issue 2](https://github.com/Octoberfest7/TeamsPhisher/issues/11)
 
-## [Conclusions](#conclusion)
+
+## [Conclusions](#conclusions)
 
 This actions heavily relay on the flaws of Microsoft Teams and the trust that the employees might have towards a product like this as it can be seen as a native extension of the communications inside an organization.
 Smart working can also be a small cause in the success of a campaign like this as missing human interactions influence and increase the value of chatting products within and outside organizations.
