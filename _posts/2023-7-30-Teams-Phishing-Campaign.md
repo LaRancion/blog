@@ -50,7 +50,7 @@ The final considerations will be about the development of payloads/techniques th
 
 The tools used are: 
 - [TeamPhisher](https://github.com/Octoberfest7/TeamsPhisher) (automation)[^3]
-- [Burp Suite](https://portswigger.net/burp) (manual)[^2][^5][^6]
+- [Burp Suite](https://portswigger.net/burp) (manual)
 
 #### Objectives:
 - Verify the exploitability of this flaws and estimate the success that they would have in a real campaign
@@ -70,7 +70,7 @@ Defender AV and Microsoft EDR were present in the testing environment (victim ma
 
 ### [Manual Tests](#manual-tests)
 
-Testing of the following  Microsoft Teams flaws/vulnerabilities:
+Testing of the following  Microsoft Teams flaws/vulnerabilities:[^5][^6]
 
 1. verify if its possible to know if a user has external communication enabled
 2. verify if its possible to add a user to a group chat and send messages, verify that the user saw the message
@@ -84,7 +84,7 @@ Testing of the following  Microsoft Teams flaws/vulnerabilities:
 
 ```New chat > To: > insert email > search externally > if the external contact is enabled the user will be found```
 
-![External Communication](/images/contactexternal.PNG)
+![External Communication](https://raw.githubusercontent.com/LaRancion/blog/master/images/contactexternal.PNG)
 
 
 #### 2. add an external user to a group chat and send messages bypassing the block with message seen verification
@@ -92,16 +92,16 @@ Testing of the following  Microsoft Teams flaws/vulnerabilities:
 
 ``` New chat > To: > insert email of the user 2 times > insert a name for the group > send the message```
 
-![groupcreation.png](/images/groupcreation.PNG)
-![messagegroup.png](/images/messagegroup.PNG)
+![groupcreation.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/groupcreation.PNG)
+![messagegroup.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/messagegroup.PNG)
 
 message seen by the victim.
 
-![messageread.png](/images/messageread.PNG)
+![messageread.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/messageread.PNG)
 
 block if the message is directly sent to the victim.
 
-![directmessage.png](/images/directmessage.PNG)
+![directmessage.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/directmessage.PNG)
 
 #### 3. send a message to a group chat with the victim and when intercepted you can add an attachment
 
@@ -112,13 +112,13 @@ Because we cant always send attachments directly from the GUI interface as there
 
 post request modified.
 
-![burp1mod.png](/images/burp1mod.png)
+![burp1mod.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/burp1mod.png)
 
 to retrieve the files variables that are censored we can send the same file to a user trough the GUI and intercept the body with burpsuite.
 
 missing attachment icon.
 
-![attachment_icon.png](/images/attachment_icon.PNG)
+![attachment_icon.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/attachment_icon.PNG)
 
 #### 4.  send a message + attachment to a group chat and tamper the file extension/name
 
@@ -129,11 +129,11 @@ Changing the type will render the file with the image of that extension type (in
 
 changes made.
 
-![file_tampering.png](/images/file_tampering.PNG)
+![file_tampering.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/file_tampering.PNG)
 
 results.
 
-![file_tampering2.png](/images/file_tampering2.PNG)
+![file_tampering2.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/file_tampering2.PNG)
 
 **Note:** its also possible to change the shareUrl to redirect the victim to a different file or to a completely different site.
 
@@ -146,7 +146,7 @@ following the steps of point 4 we can modify another part of the file string lik
 
 victim pov.
 
-![[link spoofing.png]](/images/link_spoofing.png)
+![[link spoofing.png]](https://raw.githubusercontent.com/LaRancion/blog/master/images/link_spoofing.png)
 
 **Note:** the victim can see the malicious ShareUrl so it can be easy to detect, but if we redirect it to another sharepoint file it might not be that obvious that the file name/extension changed.
 
@@ -158,19 +158,19 @@ It's possible to modify a Microsoft Teams chat through the tampering of client m
 
 attacker sends the message and intercepts the client message ID
  
-![messageid.png](/images/messageid.PNG)
+![messageid.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/messageid.PNG)
 
 Victim POV
 
-![messageid2.png](/images/messageid2.PNG)
+![messageid2.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/messageid2.PNG)
 
 the attacker tampers the message by resending a message with the same client message id
 
-![messageid3.png](/images/messageid3.PNG)
+![messageid3.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/messageid3.PNG)
 
 Victim POV
 
-![messageid5.png](/images/messageid5.PNG)
+![messageid5.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/messageid5.PNG)
 
 **Note:** the new message will have the OriginalTimeArrived different from the original message so it will be sent after as a new message and the previous message will be deleted as it never existed in the sequence of messages
 To be confirmed from Microsoft Teams admin center.
@@ -178,11 +178,11 @@ To be confirmed from Microsoft Teams admin center.
 
 #### 7.  remove some IOC such as the external tag when the group chat is created 
 
-Unfortunately, this vulnerability from [Manual bugs/exploitations](https://posts.inthecyber.com/leveraging-microsoft-teams-for-initial-access-42beb07f12c4) is patched and as of today there isn't something that is effective as this was.
+Unfortunately, this vulnerability[^2] is patched and as of today there isn't something that is effective as this was.
 
 *broken result*
 
-![external_fail.png](/images/external_fail.PNG)
+![external_fail.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/external_fail.PNG)
 
 it's also possible to modify the username of the attacking user in Azure using some unicode emojis to try to move the external text or to make it more similar with the warning text its possible to use something like `Helpdesk (internal) &`.
 
@@ -190,7 +190,7 @@ it's also possible to modify the username of the attacking user in Azure using s
 
 During the manual tests phase I encountered something very interesting like this orgid.
 
-![orgid.PNG](/images/orgid.PNG)
+![orgid.PNG](https://raw.githubusercontent.com/LaRancion/blog/master/images/orgid.PNG)
 
 The second orgid is the ObjectID of my victim user in the Active Directory that is transmitted as clear text, I believe that with more testing and modifying of the request it could be possible to impersonate a user inside an organization with an already known user.
 As just changing the orgid with a known one inside the org doesn't work and the message isn't sent probably because of the too many ID's and controls that are hidden.
@@ -203,7 +203,7 @@ Here are some of the possible attack chains that we suppose to use in our testin
 
 #### Possible Attack chains and payload considerations
 
-![attack chain.png](/images/attackchain.png)
+![attack chain.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/attackchain.png)
 
 In this phishing campaign we are interested only in detecting the success of our attack attempts and in identifying the phished users.
 So the objectives will be to detect if the users effectively click a phishing link that redirects to a fake microsoft login page (tracked with custom urls per user) or if they download and execute the malicious file.
@@ -229,7 +229,7 @@ The delivery of the payload encounter two obstacles that can prevent the user fr
 To bypass[^9] this we can use ISO/VHD containers or 7zip files (default options in the 7zip applications have MOTW disabled for the childs inside the archive) that once extracted won't have the MOTW.
 If we are in a C2 situation we can nest the powershell commands under trusted utilities/applications like SyncAppvPublishingServer.exe[^8] or conhost.exe to download and run commands remotely(this can trigger EDR).
 
-![EDR trigger](/images/EDR_trigge.png)
+![EDR trigger](https://raw.githubusercontent.com/LaRancion/blog/master/images/EDR_trigge.png)
 
 The second one would be the Execution Policies of Powershell, as Default that should have the value of "remote signed". During the testing phase this policy didnt prevent the execution of the script on WIN10, as it was a normal ping command, but they did on WIN11 and you can encounter more blocks if you try to execute different commands.
 Fortunately to bypass execution policy we have scheduled tasks that can be used with the Invoke-WebRequest to call commands directly from pastebin.
@@ -386,23 +386,23 @@ python3 teamsphisher.py -u [REDACTED].onmicrosoft.com -p '[REDACTED]' -l targets
 
 *Teams on browser*
 
-![pov sender 1.png](/images/pov_sender_1.png)
-![pov sender 2.png](/images/pov_sender_2.png)
+![pov sender 1.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/pov_sender_1.png)
+![pov sender 2.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/pov_sender_2.png)
 
 3. This is the **victim Teams pov** with notifications:
 
 *phone notification*
 
-![victim pov phone notification.jpeg](/images/victim_pov_phone_notification.jpeg)
+![victim pov phone notification.jpeg](https://raw.githubusercontent.com/LaRancion/blog/master/images/victim_pov_phone_notification.jpeg)
 
 *desktop notification*
 
-![notifica desktop.png](/images/notifica_desktop.png)
+![notifica desktop.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/notifica_desktop.png)
 
 *Teams App*
 
-![pov receiver 1.png](/images/pov_receiver_1.png)
-![pov receiver 2.png](/images/pov_receiver_2.png)
+![pov receiver 1.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/pov_receiver_1.png)
+![pov receiver 2.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/pov_receiver_2.png)
 
 To personalize the code of the message there is an automatic greetings that's customizable or it can be turned off with the ```--nogreeting ``` option.
 
@@ -460,7 +460,7 @@ more features and customization are available on the [github page](https://githu
 
 The error was related with the formatting of the message and the use of special characters
 
-![error 500.png](/images/error_500.png)
+![error 500.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/error_500.png)
 
 2.  [GitHub issue 1](https://github.com/Octoberfest7/TeamsPhisher/issues/3)
 
