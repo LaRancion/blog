@@ -17,8 +17,6 @@ entries:
   - title: posts by category
     post_list:
       category: phishing
-      show_more: false
-      
-  - title: rss
-    url: feed.xml
+      show_more: true
+  
   
