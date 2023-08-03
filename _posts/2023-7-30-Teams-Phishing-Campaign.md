@@ -42,7 +42,7 @@ The tools used are:
 
 ## Data and tests
 
-##### General Info
+### General Info
 
 Using the azure domain free its possible to setup a custom domain like the one we used ```REDACTED.onmicrosoft.com``` and a user like  
 ```REDACTED@REDACTED.onmicrosoft.com``` ( create something that blends more with the org that you are trying to infiltrate :] like Helpdesk ICT with a similar domain), the cost of this procedure is 1$.
