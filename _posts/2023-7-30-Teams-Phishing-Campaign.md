@@ -15,12 +15,19 @@ Implementation of a phishing campaign through known Microsoft Teams vulnerabilit
 
 ## Table of contents
 - [Summary](#summary)
+  
 - [Data and tests](#data-and-tests)
+  
 -   [General Info](#general-info)
+  
 -   [Manual Tests](#manual-tests)
--   [Data Exfiltration](#data-exfiltration)
+  
+  -   [Data Exfiltration](#data-exfiltration)
+  
 -   [Automation Tests](#automation-tests)
+  
 - [Conclusions](#conclusion)
+
 - [Footnotes](#footnotes)
 
 
@@ -514,6 +521,7 @@ CloudAppEvents
 | where Workload == "Teams"
 ```
 
+
 --- 
 {: data-content="footnotes"}
 
@@ -543,7 +551,6 @@ CloudAppEvents
 
 [^12]: [Useful Red Team Info ITA](https://roccosicilia.com/)
 
-+other articles that i cant remember
 
 
 
