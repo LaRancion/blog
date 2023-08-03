@@ -167,7 +167,7 @@ Unfortunately, this vulnerability from [Manual bugs/exploitations](https://posts
 
 it's also possible to modify the username of the attacking user in Azure using some unicode emojis to try to move the external text or to make it more similar with the warning text its possible to use something like `Helpdesk (internal) &`.
 
-#### Ideas
+### Ideas
 
 During the manual tests phase I encountered something very interesting like this orgid.
 
@@ -222,7 +222,7 @@ Possible file ideas to trick the user:
 - sensitive information inside a zip protected with password
 - receipts or financial data disguised as PDFs
 
-###### Data Exfiltration
+##### Data Exfiltration
 
 The data exfiltration technique used was ICMP Tunneling and the whole idea of the ping length was taken from [Rocco Sicilia](https://roccosicilia.com/2023/04/27/icmp-infostealing-il-lab-prima-parte/) work.
 This kind of script was done because on windows we can't insert messages directly into the ping command as it is on Linux.
