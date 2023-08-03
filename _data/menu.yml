@@ -17,6 +17,8 @@ entries:
   - title: posts by category
     post_list:
       category: phishing
+      limit: 0
       show_more: true
-  
+      show_more_text: See phishing posts...
+      show_more_url: phishing-archive.html
   
