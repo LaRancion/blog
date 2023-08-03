@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 30/07/2023 Phishing on Microsoft Teams + general considerations
+title: Phishing on Microsoft Teams + general considerations
 category: phishing
 ---
 
