@@ -16,15 +16,15 @@ Implementation of a phishing campaign through known Microsoft Teams vulnerabilit
 ## Table of contents
 - [Summary](#summary)
   
-- [Data and tests](#data-and-tests)
-  
 -   [General Info](#general-info)
   
 -   [Manual Tests](#manual-tests)
   
+  -   [Possible Attack chains and payload considerations](#possible-attack-chains-and-payload-considerations)
+  
   -   [Data Exfiltration](#data-exfiltration)
   
--   [Automation Tests using TeamPhisher](#automation-tests)
+-   [Automation Tests using TeamPhisher](#automation-tests-using-teamphisher)
   
 - [Conclusions](#conclusions)
 
@@ -201,7 +201,7 @@ There are some gzip encoded requests that when decoded (use burp decoder or cybe
 
 Here are some of the possible attack chains that we suppose to use in our testing environment , this is just an example an not enough articulated to describe every aspect of the attack but it's a general idea of how to carry on the phishing attempt.
 
-#### Possible Attack chains and payload considerations
+#### [Possible Attack chains and payload considerations](#possible-attack-chains-and-payload-considerations)
 
 ![attack chain.png](https://raw.githubusercontent.com/LaRancion/blog/master/images/attackchain.png)
 
@@ -368,7 +368,7 @@ On the attacker machine we will have a program taking the length of the data and
 
 ---
 
-### [Automation Tests using TeamPhisher](#automation-tests)
+### [Automation Tests using TeamPhisher](#automation-tests-using-teamphisher)
 
 we installed the following packages with pip ```
 pip3 install msal```
