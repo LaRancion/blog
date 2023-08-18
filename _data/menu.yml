@@ -22,8 +22,8 @@ entries:
       show_more_text: See phishing content...
       show_more_url: phishing-archive.html
 
-- title: Malware Analysis Content
-  post_list:
+  - title: Malware Analysis Content
+    post_list:
       category: malwareanalysis
       limit: 0
       show_more: true
