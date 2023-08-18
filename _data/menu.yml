@@ -24,7 +24,7 @@ entries:
 
 - title: Malware Analysis Content
    post_list:
-      category: malware-analysis
+      category: malwareanalysis
       limit: 0
       show_more: true
       show_more_text: See Malware Analysis content...
