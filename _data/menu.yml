@@ -14,15 +14,18 @@ entries:
       show_more_text: See archive...
       show_more_url: archive.html
 
-  - title: posts by category
+  - title: Phishing Content
     post_list:
       category: phishing
       limit: 0
       show_more: true
       show_more_text: See phishing content...
       show_more_url: phishing-archive.html
-      category: Malware-analysis
+
+- title: Malware Analysis Content
+   post_list:
+      category: malware-analysis
       limit: 0
       show_more: true
       show_more_text: See Malware Analysis content...
-      show_more_url: Malware-analysis-archive.html
+      show_more_url: malware-analysis-archive.html
