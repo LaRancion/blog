@@ -62,5 +62,5 @@ We find the keepass dump cited in the rt ticket, we then dump the master key pas
 
 ### Refs
 
-https://github.com/vdohney/keepass-password-dumper
-https://github.com/matro7sh/keepass-dump-masterkey
+[exploit 1](https://github.com/vdohney/keepass-password-dumper)
+[exploit 2](https://github.com/matro7sh/keepass-dump-masterkey)
