@@ -1,7 +1,7 @@
 ---
 layout: post
 title: HTB Keeper Writeup
-category: Writeups
+category: writeups
 ---
 
 ## ENUMERATION
