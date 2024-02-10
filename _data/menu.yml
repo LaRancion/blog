@@ -14,7 +14,7 @@ entries:
       show_more_text: See archive...
       show_more_url: archive.html
       
-    - title: Writeups
+  - title: Writeups
     post_list:
       category: writeups
       limit: 0
