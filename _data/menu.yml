@@ -13,7 +13,15 @@ entries:
       show_more: true
       show_more_text: See archive...
       show_more_url: archive.html
-
+      
+    - title: Writeups
+    post_list:
+      category: writeups
+      limit: 0
+      show_more: true
+      show_more_text: See more writeups...
+      show_more_url: writeup-archive.html
+      
   - title: Phishing Content
     post_list:
       category: phishing
